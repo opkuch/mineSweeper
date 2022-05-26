@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Jolly+Lodger&family=Lobster&family=VT323&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./css/style.css" >
+    <title>Minesweeper</title>
+</head>
+<body onload="init()">
+    <div class="wrapper">
+        <div class="header">
+            <h1 class="headline confirm-selection">MineSweeper</h1>
+            <button class="leaderboard-btn" onclick="openLeaderModal()">Leaderboard</button>
+            <button class="restart-btn" onclick="init()">New Game</button>
+            <h2 class="diff-txt confirm-selection">Difficulty</h2>
+
+            <div class="btn-container">
+                <button class="difficulty-btn" onclick="changeDifficulty(this)" data-value = "easy">Easy</button>
+                <button class="difficulty-btn" onclick="changeDifficulty(this)" data-value = "medium">Medium</button>
+                <button class="difficulty-btn" onclick="changeDifficulty(this)" data-value = "hard">Hard</button>
+            </div>
+        </div>
+        
+            <div class="hints">
+                <h2 class="hints-txt confirm-selection">HINTS: </h2>
+                <img class="hint-img" src="./imgs/hint.gif" onclick="hintClicked(this)"></img>
+                <img class="hint-img" src="./imgs/hint.gif" onclick="hintClicked(this)"></img>
+                <img class="hint-img" src="./imgs/hint.gif" onclick="hintClicked(this)"></img>
+            </div>
+            <div class="game-bonuses">
+                <button class="undo-btn" onclick="undoClicked()">UNDO</button>
+                <button class="safeclick-btn" onclick="safeClick()">Safe Click</button> 
+                <button class="sevenboom-btn" onclick="sevenBoom()">7 Boom!</button>
+                <button class="manualMode-btn" onclick="setManualMode()">Manual Mode</button>
+                <span class="safeclick-txt"></span> 
+            </div>
+            <div class="game-tools">
+                <span class="lives"></span>
+                <span class="flag-counter"></span>
+                <span class="stopper-text">Time: </span>
+                <span class="stopper"></span>
+            </div>
+            <div class="pumpkin-container">
+                <img class="pumpkin-img" src="./imgs/pumpkin_play.gif" onclick="init()"/>
+           </div>
+            <div class="board-wrap" oncontextmenu="return false;">
+                <table class="board"></table>
+            </div>
+            <div class="footer">
+                <p>Made With ❤ By Nadav Ben-Hur - Coding Academy</p>
+            </div>
+            <div class="leaderboard-modal">
+                <h2 class="leader-modal-headline">LEADERBOARD: </h2>
+                <table class="leaderboard-table">
+                    <thead>
+                      <tr>
+                        <th>
+                          #
+                        </th>
+                        <th>
+                          Name
+                        </th>
+                        <th>
+                          Seconds
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody class="leaderboard-body">
+                      <tr id="top0">
+                          <td id="rank0" class="leaderboard-txt"></td>
+                          <td id="name0" class="leaderboard-txt"></td>
+                          <td id="score0" class="leaderboard-txt"></td>
+                      </tr>
+                      <tr id="top1">
+                          <td id="rank1" class="leaderboard-txt"></td>
+                          <td id="name1" class="leaderboard-txt"></td>
+                          <td id="score1" class="leaderboard-txt"></td>
+                      </tr>
+                      <tr id="top2">
+                          <td id="rank2" class="leaderboard-txt"></td>
+                          <td id="name2" class="leaderboard-txt"></td>
+                          <td id="score2" class="leaderboard-txt"></td>
+                      </tr>
+                      <tr id="top3">
+                          <td id="rank3" class="leaderboard-txt"></td>
+                          <td id="name3" class="leaderboard-txt"></td>
+                          <td id="score3" class="leaderboard-txt"></td>
+                      </tr>
+                      <tr id="top4">
+                          <td id="rank4" class="leaderboard-txt"></td>
+                          <td id="name4" class="leaderboard-txt"></td>
+                          <td id="score4" class="leaderboard-txt"></td>
+                      </tr>
+                      <tr id="top5">
+                          <td id="rank5" class="leaderboard-txt"></td>
+                          <td id="name5" class="leaderboard-txt"></td>
+                          <td id="score5" class="leaderboard-txt"></td>
+                      </tr>
+                      <tr id="top6">
+                          <td id="rank6" class="leaderboard-txt"></td>
+                          <td id="name6" class="leaderboard-txt"></td>
+                          <td id="score6" class="leaderboard-txt"></td>
+                      </tr>
+                      <tr id="top7">
+                          <td id="rank7" class="leaderboard-txt"></td>
+                          <td id="name7" class="leaderboard-txt"></td>
+                          <td id="score7" class="leaderboard-txt"></td>
+                      </tr>
+                      <tr id="top8">
+                          <td id="rank8" class="leaderboard-txt"></td>
+                          <td id="name8" class="leaderboard-txt"></td>
+                          <td id="score8" class="leaderboard-txt"></td>
+                      </tr>
+                      <tr id="top9">
+                          <td id="rank9" class="leaderboard-txt"></td>
+                          <td id="name9" class="leaderboard-txt"></td>
+                          <td id="score9" class="leaderboard-txt"></td>
+                      </tr>																		
+                    </tbody>
+                    <button class="closeModal" onclick="closeLeaderModal()">Close</button>
+                  </table>            
+            </div>
+        </div>
+    </div>
+    
+    <script src="js/util.js"></script>
+    <script src="js/game.js"></script>
+</body>
+</html>
