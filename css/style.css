@@ -16,7 +16,9 @@ html, body {
     background-color: rgb(10, 13, 26);
 }
 
-
+.board-wrap{
+    height: 450px;
+}
 .board{
     border-spacing: 5px;
     margin-bottom: 500px;
@@ -275,3 +277,4 @@ tr .revealed::selection{
     text-align: center;
     color: rgb(88, 0, 0);
  }
+
