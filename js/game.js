@@ -302,7 +302,7 @@ function hintClicked(elHint) {
 }
 
 function undoClicked() {
-  if (gBoardCopies.length <= 1) return
+  if (gBoardCopies.length <= 1 || !gGame.isOn) return
 
   var lastIdx = gBoardCopies.length - 1
   gBoard = gBoardCopies[lastIdx]
@@ -333,6 +333,7 @@ function safeClick() {
 }
 
 function sevenBoom(){
+  if (gGame.isOn) return
   gIsSevenBoom = true
   var count = 0
   var strCount
