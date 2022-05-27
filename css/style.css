@@ -28,6 +28,7 @@ html, body {
     display: grid;
     justify-content: center;
     align-items: center;
+
 }
 .headline, .hints-txt{
       text-align: center;
@@ -199,6 +200,7 @@ tr .revealed::selection{
 }
 .pumpkin-container{
     display: inline;
+    user-select: none;
 }
 
 .pumpkin-img{
@@ -211,6 +213,7 @@ tr .revealed::selection{
     position: relative;
     left: -300px;
     bottom: -300px;
+    user-select: none;
 }
 .hint-img{
     display: inline-block;
@@ -223,6 +226,8 @@ tr .revealed::selection{
     display: inline;
     margin: 20px;
     margin-top: 60px;
+    user-select: none;
+
 }
 .safeclick-btn,.undo-btn,.sevenboom-btn,.manualMode-btn{
     padding: 5px;
@@ -233,8 +238,9 @@ tr .revealed::selection{
     color: rgb(255, 216, 216);
     font-family: 'Lobster', cursive;
     cursor: pointer;
-    transition: box-shadow 1s;
+    transition: box-shadow 0.5s;
     border: 1px solid rgb(230, 194, 255);
+    user-select: none;
 
 }
 
@@ -282,6 +288,10 @@ tr .revealed::selection{
     text-align: center;
     color: rgb(88, 0, 0);
  }
+ .footer p::selection{
+     color: rgb(88, 0, 0);
+     background-color: white;
+ }
 
 .lamp-img-left{
     position: absolute;
@@ -300,4 +310,5 @@ tr .revealed::selection{
     width: 85px;
     height: 85px;
     opacity: 0.7;
+    user-select: none;
 }
