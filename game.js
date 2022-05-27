@@ -105,13 +105,12 @@ function cellClicked(cellTd, i, j) {
     gBoardCopies.push(structuredClone(gBoard))
     startStopper()
   }
-  if (!gIsHint){
+  if (!gIsHint) {
     gGame.showCount++
     cell.isShown = true
     checkGameOver()
     renderBoard(gBoard)
   }
-
 
   if (cell.isMine) {
     gLives--
@@ -192,6 +191,7 @@ function stopperRun() {
 }
 
 function cellMarked(cellTd, i, j) {
+  if (!gFirstClick) return
   if (cellTd.classList.contains('revealed') || !gGame.isOn) return
   var cell = gBoard[i][j]
   cell.isMarked = cell.isMarked ? false : true
@@ -300,7 +300,7 @@ function disableHint() {
     var cell = gNeighbors[i]
     cell.isShown = false
   }
-  for (var i = 0; i < gRevealedCells.length; i++){
+  for (var i = 0; i < gRevealedCells.length; i++) {
     var cell = gRevealedCells[i]
     cell.isShown = true
   }
@@ -343,19 +343,20 @@ function safeClick() {
   }
 }
 
-function sevenBoom(){
+function sevenBoom() {
   if (gGame.isOn) return
   var elSevenBoomTxt = document.querySelector('.sevenBoom-txt')
   elSevenBoomTxt.innerText = 'Mode is on!'
-  
+
   gIsSevenBoom = true
   var count = 0
   var strCount
-  for (var i = 0; i < gBoard.length; i++){
-    for(var j = 0; j < gBoard.length; j++){
+  for (var i = 0; i < gBoard.length; i++) {
+    for (var j = 0; j < gBoard.length; j++) {
       strCount = count + ''
       var cell = gBoard[i][j]
-      if (count % 7 === 0 && count !== 0 || strCount.includes('7')) cell.isMine = true
+      if ((count % 7 === 0 && count !== 0) || strCount.includes('7'))
+        cell.isMine = true
       count++
     }
   }
@@ -363,19 +364,19 @@ function sevenBoom(){
   gBoardCopies.push(structuredClone(gBoard))
 }
 
-function setManualMode(){
+function setManualMode() {
   gIsManual = true
   gManualMode = true
 }
 
-function putManualMine(mineNum, i, j){
-  if (gManualMineCount !== mineNum){
+function putManualMine(mineNum, i, j) {
+  if (gManualMineCount !== mineNum) {
     var cell = gBoard[i][j]
     cell.isMine = true
     gManualMineCount++
     setMinesNegsCount(gBoard)
     gBoardCopies.push(structuredClone(gBoard))
-  }else {
+  } else {
     gIsManual = false
   }
 }
