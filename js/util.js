@@ -50,16 +50,16 @@ function getEmptyCell() {
 }
 
 function getRandomLocation(coord) {
-  var rowIdx = getRandomInt(1, gBoard.length)
-  var colIdx = getRandomInt(1, gBoard.length)
+  var rowIdx = getRandomInt(0, gBoard.length)
+  var colIdx = getRandomInt(0, gBoard.length)
 
   while (true) {
     if (colIdx !== coord.j && rowIdx !== coord.i) {
       var randLocation = { i: rowIdx, j: colIdx }
       return randLocation
     } else {
-      rowIdx = getRandomInt(1, gBoard.length)
-      colIdx = getRandomInt(1, gBoard.length)
+      rowIdx = getRandomInt(0, gBoard.length)
+      colIdx = getRandomInt(0, gBoard.length)
     }
   }
 }

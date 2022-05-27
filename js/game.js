@@ -90,7 +90,7 @@ function cellClicked(cellTd, i, j) {
   if (gIsHint) useHint(cell, i, j)
   if (cell.isMarked) return
   gBoardCopies.push(structuredClone(gBoard))
-  if (gIsManual) {
+  if (gIsManual && !gGame.isOn) {
     putManualMine(gLevel.MINES, i, j)
     return
   }
@@ -341,6 +341,9 @@ function safeClick() {
 
 function sevenBoom(){
   if (gGame.isOn) return
+  var elSevenBoomTxt = document.querySelector('.sevenBoom-txt')
+  elSevenBoomTxt.innerText = 'Mode is on!'
+  
   gIsSevenBoom = true
   var count = 0
   var strCount

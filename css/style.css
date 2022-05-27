@@ -208,9 +208,9 @@ tr .revealed::selection{
     cursor: pointer;
 }
 .hints{
-    position: absolute;
-    left: 100px;
-    bottom: 100px;
+    position: relative;
+    left: -300px;
+    bottom: -300px;
 }
 .hint-img{
     display: inline-block;
@@ -261,6 +261,7 @@ tr .revealed::selection{
     text-decoration: underline 1px;
     width: 120px;
     margin-left: 180px;
+    
 }
 
 .safeclick-txt{
