@@ -21,6 +21,7 @@ var gIsManual
 var gManualMode
 var gManualMineCount
 var gRevealedCells
+var gIsNoramlMode
 
 var gGame = {
   isOn: false,
@@ -43,6 +44,7 @@ function init() {
   gIsHint = false
   gFirstClick = false
   gIsSevenBoom = false
+  gIsNoramlMode = false
   gFlagCount = gLevel.MINES
   gLives = 3
   gIsManual = false
@@ -92,13 +94,14 @@ function cellClicked(cellTd, i, j) {
   }
   if (cell.isMarked) return
   gBoardCopies.push(structuredClone(gBoard))
-  if (gIsManual && !gGame.isOn) {
+  if (gIsManual) {
     putManualMine(gLevel.MINES, i, j)
     return
   }
 
-  if (!gFirstClick && !gIsSevenBoom && !gManualMode) {
+  if (!gFirstClick && !gIsSevenBoom && !gIsManual) {
     gFirstClick = true
+    gIsNoramlMode = true
     var clickCoord = { i: +cellTd.dataset.i, j: +cellTd.dataset.j }
     putMines(clickCoord)
     setMinesNegsCount(gBoard)
@@ -120,7 +123,6 @@ function cellClicked(cellTd, i, j) {
     renderLives()
     return
   }
-
   if (cell.minesAroundCount === 0 && !cell.isMine) {
     expandShown(gBoard, i, j)
     renderBoard(gBoard)
@@ -156,8 +158,7 @@ function checkGameOver() {
     clearInterval(gStopperInterval)
   }
   var cellsAmount = gLevel.SIZE * gLevel.SIZE - gLevel.MINES
-  console.log(gMineCount)
-  console.log(gGame.markedCount)
+
   if (gGame.showCount >= cellsAmount && gMineCount === gGame.markedCount) {
     callVictory()
   }
@@ -344,10 +345,7 @@ function safeClick() {
 }
 
 function sevenBoom() {
-  if (gGame.isOn) return
-  var elSevenBoomTxt = document.querySelector('.sevenBoom-txt')
-  elSevenBoomTxt.innerText = 'Mode is on!'
-
+  if (gIsManual || gIsNoramlMode) return
   gIsSevenBoom = true
   var count = 0
   var strCount
@@ -365,8 +363,12 @@ function sevenBoom() {
 }
 
 function setManualMode() {
-  gIsManual = true
-  gManualMode = true
+  if (!gIsSevenBoom && !gIsNoramlMode){
+    gIsManual = true
+    gManualMode = true
+    gFirstClick = true
+  }
+
 }
 
 function putManualMine(mineNum, i, j) {
@@ -378,5 +380,6 @@ function putManualMine(mineNum, i, j) {
     gBoardCopies.push(structuredClone(gBoard))
   } else {
     gIsManual = false
+    startStopper()
   }
 }
