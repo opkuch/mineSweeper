@@ -87,15 +87,17 @@ function cellClicked(cellTd, i, j) {
   if (cellTd.classList.contains('revealed') || !gGame.isOn) return
 
   var cell = gBoard[i][j]
-  if (gIsHint) useHint(cell, i, j)
+  if (gIsHint) {
+    useHint(cell, i, j)
+  }
   if (cell.isMarked) return
   gBoardCopies.push(structuredClone(gBoard))
-  if (gIsManual && !gGame.isOn) {
+  if (gIsManual) {
     putManualMine(gLevel.MINES, i, j)
     return
   }
 
-  if (!gFirstClick && !gIsSevenBoom && !gManualMode) {
+  if (!gFirstClick && !gIsSevenBoom && !gIsManual) {
     gFirstClick = true
     var clickCoord = { i: +cellTd.dataset.i, j: +cellTd.dataset.j }
     putMines(clickCoord)
@@ -103,11 +105,12 @@ function cellClicked(cellTd, i, j) {
     gBoardCopies.push(structuredClone(gBoard))
     startStopper()
   }
-
-  gGame.showCount++
-  cell.isShown = true
-  checkGameOver()
-  renderBoard(gBoard)
+  if (!gIsHint) {
+    gGame.showCount++
+    cell.isShown = true
+    checkGameOver()
+    renderBoard(gBoard)
+  }
 
   if (cell.isMine) {
     gLives--
@@ -117,7 +120,6 @@ function cellClicked(cellTd, i, j) {
     renderLives()
     return
   }
-
   if (cell.minesAroundCount === 0 && !cell.isMine) {
     expandShown(gBoard, i, j)
     renderBoard(gBoard)
@@ -153,8 +155,7 @@ function checkGameOver() {
     clearInterval(gStopperInterval)
   }
   var cellsAmount = gLevel.SIZE * gLevel.SIZE - gLevel.MINES
-  console.log(gMineCount)
-  console.log(gGame.markedCount)
+
   if (gGame.showCount >= cellsAmount && gMineCount === gGame.markedCount) {
     callVictory()
   }
@@ -188,6 +189,7 @@ function stopperRun() {
 }
 
 function cellMarked(cellTd, i, j) {
+  if (!gFirstClick) return
   if (cellTd.classList.contains('revealed') || !gGame.isOn) return
   var cell = gBoard[i][j]
   cell.isMarked = cell.isMarked ? false : true
@@ -296,7 +298,7 @@ function disableHint() {
     var cell = gNeighbors[i]
     cell.isShown = false
   }
-  for (var i = 0; i < gRevealedCells.length; i++){
+  for (var i = 0; i < gRevealedCells.length; i++) {
     var cell = gRevealedCells[i]
     cell.isShown = true
   }
@@ -339,19 +341,17 @@ function safeClick() {
   }
 }
 
-function sevenBoom(){
-  if (gGame.isOn) return
-  var elSevenBoomTxt = document.querySelector('.sevenBoom-txt')
-  elSevenBoomTxt.innerText = 'Mode is on!'
-  
+function sevenBoom() {
+  if (gIsManual || gStopperInterval) return
   gIsSevenBoom = true
   var count = 0
   var strCount
-  for (var i = 0; i < gBoard.length; i++){
-    for(var j = 0; j < gBoard.length; j++){
+  for (var i = 0; i < gBoard.length; i++) {
+    for (var j = 0; j < gBoard.length; j++) {
       strCount = count + ''
       var cell = gBoard[i][j]
-      if (count % 7 === 0 && count !== 0 || strCount.includes('7')) cell.isMine = true
+      if ((count % 7 === 0 && count !== 0) || strCount.includes('7'))
+        cell.isMine = true
       count++
     }
   }
@@ -359,19 +359,24 @@ function sevenBoom(){
   gBoardCopies.push(structuredClone(gBoard))
 }
 
-function setManualMode(){
-  gIsManual = true
-  gManualMode = true
+function setManualMode() {
+  if (!gIsSevenBoom && !gStopperInterval){
+    gIsManual = true
+    gManualMode = true
+    gFirstClick = true
+  }
+
 }
 
-function putManualMine(mineNum, i, j){
-  if (gManualMineCount !== mineNum){
+function putManualMine(mineNum, i, j) {
+  if (gManualMineCount !== mineNum) {
     var cell = gBoard[i][j]
     cell.isMine = true
     gManualMineCount++
     setMinesNegsCount(gBoard)
     gBoardCopies.push(structuredClone(gBoard))
-  }else {
+  } else {
     gIsManual = false
+    startStopper()
   }
 }
