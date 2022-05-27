@@ -225,7 +225,7 @@ tr .revealed::selection{
     height: fit-content;
     display: inline;
     margin: 20px;
-    margin-top: 60px;
+    margin-top: 0;
     user-select: none;
 
 }
