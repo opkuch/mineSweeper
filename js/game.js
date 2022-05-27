@@ -20,6 +20,7 @@ var gIsSevenBoom
 var gIsManual
 var gManualMode
 var gManualMineCount
+var gRevealedCells
 
 var gGame = {
   isOn: false,
@@ -50,6 +51,7 @@ function init() {
   gManualMineCount = 0
   gMineCount = gLevel.MINES
   gNeighbors = []
+  gRevealedCells = []
   gBoard = buildBoard()
   gBoardCopies = []
   renderBoard(gBoard)
@@ -240,7 +242,7 @@ function callVictory() {
   gGame.isOn = false
   clearInterval(gStopperInterval)
   var pumpkin = document.querySelector('.pumpkin-img')
-  pumpkin.src = './imgs/pumpkin_victory.gif'
+  pumpkin.src = './imgs/banana_victory.gif'
   if (highScoreCheck()) {
     pushNewLeader()
   }
@@ -283,6 +285,7 @@ function useHint(currCell, i, j) {
   gNeighbors.push(currCell)
   for (var i = 0; i < gNeighbors.length; i++) {
     var cell = gNeighbors[i]
+    if (cell.isShown) gRevealedCells.push(cell)
     cell.isShown = true
   }
   setTimeout(disableHint, 1000)
@@ -292,6 +295,10 @@ function disableHint() {
   for (var i = 0; i < gNeighbors.length; i++) {
     var cell = gNeighbors[i]
     cell.isShown = false
+  }
+  for (var i = 0; i < gRevealedCells.length; i++){
+    var cell = gRevealedCells[i]
+    cell.isShown = true
   }
   renderBoard(gBoard)
 }
