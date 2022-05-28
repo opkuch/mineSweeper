@@ -96,7 +96,7 @@ function cellClicked(cellTd, i, j) {
     putManualMine(gLevel.MINES, i, j)
     return
   }
-  
+
   if (!gFirstClick && !gIsSevenBoom && !gIsManual) {
     gFirstClick = true
     gIsNoramlMode = true
@@ -107,6 +107,11 @@ function cellClicked(cellTd, i, j) {
     startStopper()
   }
 
+  if (gIsHint) {
+    if (cell.isMine) gGame.showCount++
+    useHint(cell, i, j)
+  }
+
   if (!gIsHint) {
     gGame.showCount++
     cell.isShown = true
@@ -114,22 +119,16 @@ function cellClicked(cellTd, i, j) {
     renderBoard(gBoard)
   }
 
-  if (gIsHint) {
-    useHint(cell, i, j)
-    if (cell.isMarked) gGame.showCount++
+  if (cell.minesAroundCount === 0 && !cell.isMine) {
+    expandShown(gBoard, i, j)
+    renderBoard(gBoard)
   }
-
   if (cell.isMine) {
     gLives--
     gGame.showCount--
     gMineCount--
     checkGameOver()
     renderLives()
-    return
-  }
-  if (cell.minesAroundCount === 0 && !cell.isMine) {
-    expandShown(gBoard, i, j)
-    renderBoard(gBoard)
   }
 }
 
