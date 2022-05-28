@@ -1,6 +1,6 @@
 'use strict'
 
-const MINE = '🧨'
+const MINE = '💣'
 
 var gFlagCount
 var gBoard
@@ -21,6 +21,7 @@ var gIsManual
 var gManualMode
 var gManualMineCount
 var gRevealedCells
+var gIsNoramlMode
 
 var gGame = {
   isOn: false,
@@ -43,6 +44,7 @@ function init() {
   gIsHint = false
   gFirstClick = false
   gIsSevenBoom = false
+  gIsNoramlMode = false
   gFlagCount = gLevel.MINES
   gLives = 3
   gIsManual = false
@@ -99,6 +101,7 @@ function cellClicked(cellTd, i, j) {
 
   if (!gFirstClick && !gIsSevenBoom && !gIsManual) {
     gFirstClick = true
+    gIsNoramlMode = true
     var clickCoord = { i: +cellTd.dataset.i, j: +cellTd.dataset.j }
     putMines(clickCoord)
     setMinesNegsCount(gBoard)
@@ -196,7 +199,7 @@ function cellMarked(cellTd, i, j) {
   if (cell.isMarked) {
     gGame.markedCount++
     cellTd.innerText = '🚩'
-    if (gGame.markedCount === gMineCount) checkGameOver()
+    checkGameOver()
   } else {
     gGame.markedCount--
     cellTd.innerText = ''
@@ -342,7 +345,7 @@ function safeClick() {
 }
 
 function sevenBoom() {
-  if (gIsManual || gStopperInterval) return
+  if (gIsManual || gIsNoramlMode) return
   gIsSevenBoom = true
   var count = 0
   var strCount
@@ -360,7 +363,7 @@ function sevenBoom() {
 }
 
 function setManualMode() {
-  if (!gIsSevenBoom && !gStopperInterval){
+  if (!gIsSevenBoom && !gIsNoramlMode){
     gIsManual = true
     gManualMode = true
     gFirstClick = true
