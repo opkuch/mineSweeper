@@ -1,6 +1,6 @@
 'use strict'
 
-const MINE = '🧨'
+const MINE = '💣'
 
 var gFlagCount
 var gBoard
