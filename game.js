@@ -199,7 +199,7 @@ function cellMarked(cellTd, i, j) {
   if (cell.isMarked) {
     gGame.markedCount++
     cellTd.innerText = '🚩'
-    if (gGame.markedCount === gMineCount) checkGameOver()
+    checkGameOver()
   } else {
     gGame.markedCount--
     cellTd.innerText = ''
