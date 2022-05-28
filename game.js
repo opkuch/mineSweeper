@@ -89,16 +89,14 @@ function cellClicked(cellTd, i, j) {
   if (cellTd.classList.contains('revealed') || !gGame.isOn) return
 
   var cell = gBoard[i][j]
-  if (gIsHint) {
-    useHint(cell, i, j)
-  }
+  
   if (cell.isMarked) return
   gBoardCopies.push(structuredClone(gBoard))
   if (gIsManual) {
     putManualMine(gLevel.MINES, i, j)
     return
   }
-
+  
   if (!gFirstClick && !gIsSevenBoom && !gIsManual) {
     gFirstClick = true
     gIsNoramlMode = true
@@ -108,11 +106,17 @@ function cellClicked(cellTd, i, j) {
     gBoardCopies.push(structuredClone(gBoard))
     startStopper()
   }
+
   if (!gIsHint) {
     gGame.showCount++
     cell.isShown = true
     checkGameOver()
     renderBoard(gBoard)
+  }
+
+  if (gIsHint) {
+    useHint(cell, i, j)
+    if (cell.isMarked) gGame.showCount++
   }
 
   if (cell.isMine) {
@@ -149,6 +153,9 @@ function putMines(coord) {
 }
 
 function checkGameOver() {
+  console.log('gMineCount = ', gMineCount)
+  console.log('markedCount = ', gGame.markedCount)
+  console.log('showCount = ', gGame.showCount)
   if (gLives === 0) {
     var pumpkin = document.querySelector('.pumpkin-img')
     pumpkin.src = './imgs/pumpkin_dead.gif'
