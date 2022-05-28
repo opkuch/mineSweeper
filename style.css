@@ -212,9 +212,9 @@ tr .revealed::selection{
     cursor: pointer;
 }
 .hints{
-    position: relative;
-    left: -300px;
-    bottom: -300px;
+    position: absolute;
+    left: 65px;
+    bottom: 150px;
     user-select: none;
 }
 .hint-img{
@@ -227,7 +227,7 @@ tr .revealed::selection{
     height: fit-content;
     display: inline;
     margin: 20px;
-    margin-top: 0;
+    margin-top: 30px;
     user-select: none;
 
 }
