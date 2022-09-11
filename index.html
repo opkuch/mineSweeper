@@ -12,47 +12,41 @@
     <div class="wrapper">
         <div class="header">
             <h1 class="headline confirm-selection">MineSweeper</h1>
-            <img class="lamp-img-left" src="imgs/lamp.gif"></img>
             <img class="lamp-img-right" src="imgs/lamp.gif"></img>
-
             <button class="leaderboard-btn" onclick="openLeaderModal()">Leaderboard</button>
             <button class="restart-btn" onclick="init()">New Game</button>
             <h2 class="diff-txt confirm-selection">Difficulty</h2>
+
             <div class="btn-container">
                 <button class="difficulty-btn" onclick="changeDifficulty(this)" data-value = "easy">Easy</button>
                 <button class="difficulty-btn" onclick="changeDifficulty(this)" data-value = "medium">Medium</button>
                 <button class="difficulty-btn" onclick="changeDifficulty(this)" data-value = "hard">Hard</button>
             </div>
         </div>
-        <hr style="width:99%;text-align:left;margin-left:0;color: white; opacity: 0.7;">
-
-            <div class="hints">
-                <h2 class="hints-txt confirm-selection">HINTS: </h2>
-                <img class="hint-img" src="./imgs/hint.gif" onclick="hintClicked(this)"></img>
-                <img class="hint-img" src="./imgs/hint.gif" onclick="hintClicked(this)"></img>
-                <img class="hint-img" src="./imgs/hint.gif" onclick="hintClicked(this)"></img>
-            </div>
-            <div class="game-bonuses">
+        
+        <div class="game-bonuses">
+            <div class="bonuses">
                 <button class="undo-btn" onclick="undoClicked()">UNDO</button>
                 <button class="safeclick-btn" onclick="safeClick()">Safe Click</button> 
-                <button class="sevenboom-btn" onclick="sevenBoom()">7 Boom! </button>
-                <button class="manualMode-btn" onclick="setManualMode()">Manual Mode </button>
                 <span class="safeclick-txt"></span> 
             </div>
+            <div class="hints">
+                <img class="hint-img" src="./imgs/hint.gif" onclick="hintClicked(this)"></img>
+                <img class="hint-img" src="./imgs/hint.gif" onclick="hintClicked(this)"></img>
+                <img class="hint-img" src="./imgs/hint.gif" onclick="hintClicked(this)"></img>
+            </div>
+        </div>
             <div class="game-tools">
                 <span class="lives"></span>
                 <span class="flag-counter"></span>
                 <span class="stopper-text">Time: </span>
                 <span class="stopper"></span>
             </div>
-            <div class="pumpkin-container">
-                <img class="pumpkin-img" src="./imgs/pumpkin_play.gif" onclick="init()"/>
+            <div class="board-logo-container">
+                <img class="board-img" src="./imgs/pumpkin_play.gif" onclick="init()"/>
            </div>
             <div class="board-wrap" oncontextmenu="return false;">
                 <table class="board"></table>
-            </div>
-            <div class="footer">
-                <p>Made With ❤ By Nadav Ben-Hur - Coding Academy</p>
             </div>
             <div class="leaderboard-modal">
                 <h2 class="leader-modal-headline">LEADERBOARD: </h2>
@@ -128,7 +122,7 @@
         </div>
     </div>
     
-    <script src="js/util.js"></script>
+    <script src="js/board.js"></script>
     <script src="js/game.js"></script>
 </body>
 </html>
